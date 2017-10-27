@@ -55,7 +55,7 @@ function init () {
   can1 = document.getElementById('canvas1');
   ctx1 = can1.getContext( '2d');
 
-  ctx1.fillStyle = 'white';
+
   ctx1.font = '20px Arial';
   ctx1.textAlign='center';
   //后一层
@@ -144,8 +144,12 @@ function gameLoop () {
   gradeData.draw();
 }
 function onMouseMove (e) {
-  if (e.offsetX || e.layerX){
-    mX = e.offsetX ? e.offsetX : e.layerX;
-    mY = e.offsetY ? e.offsetY : e.layerY;
+  //只有非gameOver时鱼随鼠标移动
+  if (!gradeData.gameOver){
+    if (e.offsetX || e.layerX){
+      mX = e.offsetX ? e.offsetX : e.layerX;
+      mY = e.offsetY ? e.offsetY : e.layerY;
+    }
   }
+
 }

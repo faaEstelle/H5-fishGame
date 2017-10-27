@@ -57,8 +57,9 @@ smallFish.prototype.draw = function () {
   if (this.babyBodyTimer > 300){
     this.babyBodyCount +=  1;
     if (this.babyBodyCount >= 20){
-      //gameover
+      //gameOver
       this.babyBodyCount = 19;
+      gradeData.gameOver = true;
     }
     this.babyBodyTimer = 50;//还原计数器
   }
