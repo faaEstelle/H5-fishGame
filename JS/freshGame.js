@@ -15,11 +15,30 @@ let deltaTime;//每两帧之间的时间间隔
 let mX;
 let mY;
 
-//实例类
+/**
+ * 实例类
+ */
 let ane;
 let fruit;
 let fishMom;
 let fishBaby;
+let gradeData;
+
+/**
+ * 小鱼动画
+ * babyTail：小鱼尾巴摆动的序列帧；babyEye：小鱼眨眼序列帧；babyFade：小鱼身体变色序列帧；
+ */
+let babyTail = [];
+let babyEye = [];
+let babyFade = [];
+/**
+ * 大鱼动画
+ *  MomTail：大鱼尾巴摆动的序列帧； MomEye：大鱼眨眼序列帧； MomFadeBlue/Orange：大鱼身体变色序列帧；
+ */
+let MomTail = [];
+let MomEye = [];
+let MomFadeBlue = [];
+let MomFadeOrange = [];
 
 let picBg = new Image();//定义背景图片变量
 //将document中的body加载完后执行某个函数（game），作为主入口
@@ -36,6 +55,9 @@ function init () {
   can1 = document.getElementById('canvas1');
   ctx1 = can1.getContext( '2d');
 
+  ctx1.fillStyle = 'white';
+  ctx1.font = '20px Arial';
+  ctx1.textAlign='center';
   //后一层
   can2 = document.getElementById('canvas2')
   ctx2 = can2.getContext( '2d');
@@ -57,9 +79,44 @@ function init () {
   fishMom.init();
   fishBaby = new smallFish();
   fishBaby.init();
+  gradeData = new gradeObj()
+
   //初始化鼠标位置
   mX = canvasWidth/2;
   mY = canvasHeight/2;
+
+
+  //初始化小鱼动画序列帧
+  for (let i = 0 ; i<8;i++){
+    babyTail[i] = new Image();
+    babyTail[i].src = './IMG/babyTail'+ i +'.png'
+  }
+  for (let i = 0 ;i<2;i++){
+    babyEye[i]=new  Image();
+    babyEye[i].src = './IMG/babyEye'+ i +'.png'
+  }
+  for (let i = 0 ; i<20;i++){
+    babyFade[i] = new Image();
+    babyFade[i].src = './IMG/babyFade'+ i +'.png'
+  }
+
+  //初始化大鱼动画序列帧
+  for (let i = 0 ; i<8;i++){
+    MomTail[i] = new Image();
+    MomTail[i].src = './IMG/bigTail'+ i +'.png'
+  }
+  for (let i = 0 ;i<2;i++){
+    MomEye[i]=new  Image();
+    MomEye[i].src = './IMG/bigEye'+ i +'.png'
+  }
+  for (let i = 0 ; i<8;i++){
+    MomFadeBlue[i] = new Image();
+    MomFadeBlue[i].src = './IMG/bigSwimBlue'+ i +'.png'
+  }
+  for (let i = 0 ; i<8;i++){
+    MomFadeOrange[i] = new Image();
+    MomFadeOrange[i].src = './IMG/bigSwim'+ i +'.png'
+  }
 }
 
 function gameLoop () {
@@ -79,8 +136,12 @@ function gameLoop () {
   fishMom.draw();
   //大鱼吃果实
   fishFruitCollide();
+  //大鱼喂小鱼
+  MomBabyCollide()
 
   fishBaby.draw();
+
+  gradeData.draw();
 }
 function onMouseMove (e) {
   if (e.offsetX || e.layerX){

@@ -21,6 +21,7 @@ fruitObj.prototype.init = function () {
     }else{
       this.type[i] = 'orange'
     }
+
     this.speeds[i] = Math.random()*0.017+0.003;//将速度设置在0.003~0.02之间
     this.born(i)
   }
@@ -56,7 +57,6 @@ fruitObj.prototype.draw = function () {
 }
 //某个随机的海葵添加生出果实
 fruitObj.prototype.born = function (i) {
-
   //获得某个随机的海葵
   let aneId = Math.floor(Math.random()*ane.num)
   //通过海葵得到果实出生的坐标值
@@ -71,13 +71,11 @@ fruitObj.prototype.dead = function (i) {
 }
 //游戏规则，保证屏幕中有一定数量的果实
 function fruitMonitor () {
-
   let count = 0;
   for(let i = 0;i<fruit.num;i++){
     if (fruit.alive[i]) count++
   }
   if (count<15){
-
     //当数量少于规定数量15个时，让一个果实出生
     sendFruit();
     return;
