@@ -40,6 +40,11 @@ let MomEye = [];
 let MomFadeBlue = [];
 let MomFadeOrange = [];
 
+/**
+ *大鱼和果实，大鱼和小鱼碰撞时的特效类
+ */
+let wave;
+
 let picBg = new Image();//定义背景图片变量
 //将document中的body加载完后执行某个函数（game），作为主入口
 document.body.onload = game;
@@ -79,7 +84,9 @@ function init () {
   fishMom.init();
   fishBaby = new smallFish();
   fishBaby.init();
-  gradeData = new gradeObj()
+  gradeData = new gradeObj();
+  wave = new waveObj();
+  wave.init();
 
   //初始化鼠标位置
   mX = canvasWidth/2;
@@ -142,6 +149,8 @@ function gameLoop () {
   fishBaby.draw();
 
   gradeData.draw();
+
+  wave.draw();
 }
 function onMouseMove (e) {
   //只有非gameOver时鱼随鼠标移动

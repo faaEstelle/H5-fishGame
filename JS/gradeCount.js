@@ -22,7 +22,6 @@ gradeObj.prototype.draw = function () {
   ctx1.fillText('SCORE：'+this.score,w/2,h-20);
   if (this.gameOver){
     this.overAlpha += deltaTime*0.001;
-    console.log(this.overAlpha)
     if(this.overAlpha >= 1) this.overAlpha = 1;
     ctx1.fillStyle = 'rgba(255,255,255,'+ this.overAlpha +')'
     ctx1.fillText('GAMEOVER',w/2,h/2);
